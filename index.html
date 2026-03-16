@@ -327,7 +327,7 @@ const selectSingle = (btn, question, answer) => {
   fetch("https://script.google.com/macros/s/AKfycbzFP1UFnL0qlbQXQjvIVrpIf-ShiSC7-XHCW23E0gxn-kKVGZNICvfACUtX4q59zkbovQ/exec", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "text/plain"
     },
     body: JSON.stringify(postData)
   }).catch(err => {
