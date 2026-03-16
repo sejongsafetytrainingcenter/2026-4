@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -124,14 +123,6 @@
       cursor: pointer;
     }
 
-    #passwordPrompt {
-      margin-top: 10px;
-    }
-
-    #statisticsSection {
-      display: none;
-    }
-
     .note {
       font-size: 0.8rem;
       color: #555;
@@ -144,223 +135,183 @@
       margin-bottom: 10px;
     }
 
-    .stat-table {
-      width: 100%;
-      margin-top: 10px;
-      border-collapse: collapse;
-    }
-
-    .stat-table th, .stat-table td {
-      padding: 8px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
-
   </style>
 </head>
 <body>
-  <h1>안전체험교육 만족도 조사</h1>
-  <div class="note-small" style="text-align: center;">(중, 고등학생용)</div>
-  <div id="currentDate"></div>
-  <div class="note">
-    * 기타 의견이 있는 사람은 포스트잇에 적어서 선생님께 제출해주세요.<br>
-    (예, 스트레스 해소방이 있으면 좋을 것 같아요 등)
-  </div>
 
-  <div id="completionMessage">응답이 완료되었습니다.</div>
+<h1>안전체험교육 만족도 조사</h1>
+<div class="note-small" style="text-align:center;">(중, 고등학생용)</div>
+<div id="currentDate"></div>
 
-  <div id="sessionButtons">
-    <button class="session-btn" onclick="startSurvey('오전')">오전체험 설문</button>
-    <button class="session-btn" onclick="startSurvey('오후')">오후체험 설문</button>
-  </div>
+<div class="note">
+* 기타 의견이 있는 사람은 포스트잇에 적어서 선생님께 제출해주세요.<br>
+(예, 스트레스 해소방이 있으면 좋을 것 같아요 등)
+</div>
 
-  <div id="surveyForm">
-    <form id="survey">
-      <table>
-        <tr>
-          <th>질문</th>
-          <th>응답</th>
-        </tr>
+<div id="completionMessage">응답이 완료되었습니다.</div>
 
-        <tr data-question="참여도">
-          <td class="question">① 나는 체험에 적극적으로 참여했다.</td>
-          <td class="btn-container">
-            <button type="button" class="btn green" onclick="selectAnswer(this, '참여도', '그렇다')">O</button>
-            <button type="button" class="btn yellow" onclick="selectAnswer(this, '참여도', '보통')">△</button>
-            <button type="button" class="btn red" onclick="selectAnswer(this, '참여도', '아니다')">X</button>
-          </td>
-        </tr>
+<div id="sessionButtons">
+<button class="session-btn" onclick="startSurvey('오전')">오전체험 설문</button>
+<button class="session-btn" onclick="startSurvey('오후')">오후체험 설문</button>
+</div>
 
-        <tr data-question="안전의식도">
-          <td class="question">② 나는 안전교육이 중요하다고 생각한다.</td>
-          <td class="btn-container">
-            <button type="button" class="btn green" onclick="selectAnswer(this, '안전의식도', '그렇다')">O</button>
-            <button type="button" class="btn yellow" onclick="selectAnswer(this, '안전의식도', '보통')">△</button>
-            <button type="button" class="btn red" onclick="selectAnswer(this, '안전의식도', '아니다')">X</button>
-          </td>
-        </tr>
+<div id="surveyForm">
+<form id="survey">
 
- <tr data-question="수업이해도">
-  <td class="question" style="font-size: 1.00rem;">③ 나는 위험상황을 판단하고 안전하게 행동할 수 있다.</td>
-  <td class="btn-container">
-    <button type="button" class="btn green" onclick="selectAnswer(this, '수업이해도', '그렇다')">O</button>
-    <button type="button" class="btn yellow" onclick="selectAnswer(this, '수업이해도', '보통')">△</button>
-    <button type="button" class="btn red" onclick="selectAnswer(this, '수업이해도', '아니다')">X</button>
-  </td>
+<table>
+<tr>
+<th>질문</th>
+<th>응답</th>
 </tr>
 
-
-
-        <tr data-question="시설만족도">
-          <td class="question">④ 체험 시설이 쾌적하고 이용하기 편리했다.</td>
-          <td class="btn-container">
-            <button type="button" class="btn green" onclick="selectAnswer(this, '시설만족도', '그렇다')">O</button>
-            <button type="button" class="btn yellow" onclick="selectAnswer(this, '시설만족도', '보통')">△</button>
-            <button type="button" class="btn red" onclick="selectAnswer(this, '시설만족도', '아니다')">X</button>
-          </td>
-        </tr>
-
-        <tr data-question="추천의사">
-          <td class="question">⑤ 나는 친구들에게 이 교육을 추천하고 싶다.</td>
-          <td class="btn-container">
-            <button type="button" class="btn green" onclick="selectAnswer(this, '추천의사', '그렇다')">O</button>
-            <button type="button" class="btn yellow" onclick="selectAnswer(this, '추천의사', '보통')">△</button>
-            <button type="button" class="btn red" onclick="selectAnswer(this, '추천의사', '아니다')">X</button>
-          </td>
-        </tr>
-      </table>
-
-      <table>
-        <tr data-question="체험선호도">
-  <td class="question">⑥ 오늘 체험한 것 중 가장 좋았던 것은?</td>
-  <td class="btn-container" style="flex-wrap: wrap; row-gap: 12px;">
-    <button type="button" class="btn blue" onclick="selectSingle(this, '체험선호도', '산행체험')">산행체험</button>
-    <button type="button" class="btn blue" onclick="selectSingle(this, '체험선호도', '완강기체험')">완강기체험</button>
-    <button type="button" class="btn blue" onclick="selectSingle(this, '체험선호도', '응급체험')">응급체험</button>
-    <button type="button" class="btn blue" onclick="selectSingle(this, '체험선호도', '자동차체험')">자동차체험</button>
-  </td>
+<tr data-question="참여도">
+<td class="question">① 나는 체험에 적극적으로 참여했다.</td>
+<td class="btn-container">
+<button type="button" class="btn green" onclick="selectAnswer(this,'참여도','그렇다')">O</button>
+<button type="button" class="btn yellow" onclick="selectAnswer(this,'참여도','보통')">△</button>
+<button type="button" class="btn red" onclick="selectAnswer(this,'참여도','아니다')">X</button>
+</td>
 </tr>
 
-      </table>
+<tr data-question="안전의식도">
+<td class="question">② 나는 안전교육이 중요하다고 생각한다.</td>
+<td class="btn-container">
+<button type="button" class="btn green" onclick="selectAnswer(this,'안전의식도','그렇다')">O</button>
+<button type="button" class="btn yellow" onclick="selectAnswer(this,'안전의식도','보통')">△</button>
+<button type="button" class="btn red" onclick="selectAnswer(this,'안전의식도','아니다')">X</button>
+</td>
+</tr>
 
-      <div id="submitDiv">
-        <button class="submit-btn" type="button" onclick="submitSurvey()">제출하기</button>
-        </div>
+<tr data-question="수업이해도">
+<td class="question">③ 나는 위험상황을 판단하고 안전하게 행동할 수 있다.</td>
+<td class="btn-container">
+<button type="button" class="btn green" onclick="selectAnswer(this,'수업이해도','그렇다')">O</button>
+<button type="button" class="btn yellow" onclick="selectAnswer(this,'수업이해도','보통')">△</button>
+<button type="button" class="btn red" onclick="selectAnswer(this,'수업이해도','아니다')">X</button>
+</td>
+</tr>
 
-    </form>
-  </div>
+<tr data-question="시설만족도">
+<td class="question">④ 체험 시설이 쾌적하고 이용하기 편리했다.</td>
+<td class="btn-container">
+<button type="button" class="btn green" onclick="selectAnswer(this,'시설만족도','그렇다')">O</button>
+<button type="button" class="btn yellow" onclick="selectAnswer(this,'시설만족도','보통')">△</button>
+<button type="button" class="btn red" onclick="selectAnswer(this,'시설만족도','아니다')">X</button>
+</td>
+</tr>
 
- 
- <script>
+<tr data-question="추천의사">
+<td class="question">⑤ 나는 친구들에게 이 교육을 추천하고 싶다.</td>
+<td class="btn-container">
+<button type="button" class="btn green" onclick="selectAnswer(this,'추천의사','그렇다')">O</button>
+<button type="button" class="btn yellow" onclick="selectAnswer(this,'추천의사','보통')">△</button>
+<button type="button" class="btn red" onclick="selectAnswer(this,'추천의사','아니다')">X</button>
+</td>
+</tr>
+</table>
 
-  let surveyData = {
-    "참여도": "",
-    "안전의식도": "",
-    "수업이해도": "",
-    "시설만족도": "",
-    "추천의사": "",
-    "체험선호도": ""
-  };
+<table>
+<tr data-question="체험선호도">
+<td class="question">⑥ 오늘 체험한 것 중 가장 좋았던 것은?</td>
+<td class="btn-container" style="flex-wrap:wrap;row-gap:12px;">
+<button type="button" class="btn blue" onclick="selectSingle(this,'체험선호도','산행체험')">산행체험</button>
+<button type="button" class="btn blue" onclick="selectSingle(this,'체험선호도','완강기체험')">완강기체험</button>
+<button type="button" class="btn blue" onclick="selectSingle(this,'체험선호도','응급체험')">응급체험</button>
+<button type="button" class="btn blue" onclick="selectSingle(this,'체험선호도','자동차체험')">자동차체험</button>
+</td>
+</tr>
+</table>
 
-const selectAnswer = (btn, question, answer) => {
-  surveyData[question] = answer;
-  btn.classList.add("selected");
-  [...btn.parentElement.children].forEach((sibling) => {
-    if (sibling !== btn) sibling.classList.remove("selected");
-  });
+<button class="submit-btn" type="button" onclick="submitSurvey()">제출하기</button>
 
-  // 마지막 응답 저장
-  lastResponse = { question, button: btn };
+</form>
+</div>
+
+<script>
+
+let surveyData={
+"참여도":"",
+"안전의식도":"",
+"수업이해도":"",
+"시설만족도":"",
+"추천의사":"",
+"체험선호도":""
 };
 
-const selectSingle = (btn, question, answer) => {
-  surveyData[question] = answer;
-  btn.classList.add("selected");
-  [...btn.parentElement.children].forEach((sibling) => {
-    if (sibling !== btn) sibling.classList.remove("selected");
-  });
+let currentSession="";
 
-  // 마지막 응답 저장
-  lastResponse = { question, button: btn };
+const selectAnswer=(btn,q,a)=>{
+surveyData[q]=a;
+btn.classList.add("selected");
+[...btn.parentElement.children].forEach(s=>{
+if(s!==btn)s.classList.remove("selected");
+});
 };
 
-  let currentSession = "";
-
-  const updateCurrentDate = () => {
-    const now = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short', hour: 'numeric', minute: 'numeric' };
-    document.getElementById('currentDate').innerText = now.toLocaleDateString('ko-KR', options);
-  };
-
-  const startSurvey = (session) => {
-    currentSession = session;
-    document.getElementById('surveyForm').style.display = 'block';
-    document.getElementById('sessionButtons').style.display = 'none';
-    updateCurrentDate();
-  };
-
- 
- const submitSurvey = () => {
-  let allAnswered = Object.values(surveyData).every(answer => answer !== "");
-  if (!allAnswered) {
-    alert("모든 문항에 답변을 해 주세요.");
-    return;
-  }
-
-  // ✅ 완료 메시지 표시
-  document.getElementById('completionMessage').style.display = 'block';
-
-  // ✅ 전송할 데이터 백업
-  const postData = {
-    mode: "submit",
-    session: currentSession,
-    날짜: new Date().toLocaleString('ko-KR'),
-    참여도: surveyData["참여도"],
-    안전의식도: surveyData["안전의식도"],
-    수업이해도: surveyData["수업이해도"],
-    시설만족도: surveyData["시설만족도"],
-    추천의사: surveyData["추천의사"],
-    체험선호도: surveyData["체험선호도"]
-  };
-
-  // ✅ Google Sheets로 전송 (비동기 - 기다리지 않고 실행)
-  fetch("https://script.google.com/macros/s/AKfycbzFP1UFnL0qlbQXQjvIVrpIf-ShiSC7-XHCW23E0gxn-kKVGZNICvfACUtX4q59zkbovQ/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "text/plain"
-    },
-    body: JSON.stringify(postData)
-  }).catch(err => {
-    console.error("응답 전송 실패:", err);
-  });
-
-  // ✅ 버튼 즉시 초기화
-  document.querySelectorAll('.btn.selected').forEach(button => {
-    button.classList.remove('selected');
-  });
-
-  document.querySelectorAll('.survey-question .option-button').forEach(button => {
-    button.disabled = false;
-    button.classList.remove('selected');
-  });
-
-  // ✅ 데이터 초기화
-  surveyData = {
-    "참여도": "",
-    "안전의식도": "",
-    "수업이해도": "",
-    "시설만족도": "",
-    "추천의사": "",
-    "체험선호도": ""
-  };
-
-  // ✅ 1초 뒤에 완료 메시지 숨기기
-  setTimeout(() => {
-    document.getElementById('completionMessage').style.display = 'none';
-  }, 1000); // 1초 후
-
+const selectSingle=(btn,q,a)=>{
+surveyData[q]=a;
+btn.classList.add("selected");
+[...btn.parentElement.children].forEach(s=>{
+if(s!==btn)s.classList.remove("selected");
+});
 };
 
+const updateCurrentDate=()=>{
+const now=new Date();
+document.getElementById('currentDate').innerText=now.toLocaleDateString('ko-KR');
+};
+
+const startSurvey=(session)=>{
+currentSession=session;
+document.getElementById('surveyForm').style.display='block';
+document.getElementById('sessionButtons').style.display='none';
+updateCurrentDate();
+};
+
+const submitSurvey=()=>{
+
+let allAnswered=Object.values(surveyData).every(a=>a!=="");
+if(!allAnswered){
+alert("모든 문항에 답변을 해 주세요.");
+return;
+}
+
+document.getElementById('completionMessage').style.display='block';
+
+const postData={
+mode:"submit",
+session:currentSession,
+참여도:surveyData["참여도"],
+안전의식도:surveyData["안전의식도"],
+수업이해도:surveyData["수업이해도"],
+시설만족도:surveyData["시설만족도"],
+추천의사:surveyData["추천의사"],
+체험선호도:surveyData["체험선호도"]
+};
+
+fetch("https://script.google.com/macros/s/AKfycbzFP1UFnL0qlbQXQjvIVrpIf-ShiSC7-XHCW23E0gxn-kKVGZNICvfACUtX4q59zkbovQ/exec",{
+method:"POST",
+body:JSON.stringify(postData)
+});
+
+document.querySelectorAll('.btn.selected').forEach(b=>{
+b.classList.remove('selected');
+});
+
+surveyData={
+"참여도":"",
+"안전의식도":"",
+"수업이해도":"",
+"시설만족도":"",
+"추천의사":"",
+"체험선호도":""
+};
+
+setTimeout(()=>{
+document.getElementById('completionMessage').style.display='none';
+},1000);
+
+};
 
 </script>
 
